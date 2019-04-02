@@ -1,0 +1,273 @@
+\documentclass{article}
+
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{gensymb}
+\usepackage{graphicx}
+
+
+
+%===== General margin setup =====
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%===== Packages that I normally like to use
+\usepackage{amsmath,amssymb} %General math symbols and stuff
+\usepackage[mathscr]{euscript} %To use script letters with \mathscr{}
+\usepackage{amsthm} %To be able to write Definitions, Theorems, etc.
+\usepackage{graphicx} % To scale equations and put figures wherever
+\usepackage{framed} % To be able to frame theorems and stuff with begin{framed} ... \end{framed}
+\usepackage{float} %To be able to place figures exactly where I want with [H]
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{cite}
+\usepackage[hidelinks, breaklinks=true]{hyperref} %To be able to use links inside the document; [hidelinks removes the ugly red boxes]
+\usepackage{xcolor}  \definecolor{shadecolor}{rgb}{.95,.95,.95}  %To put a shaded region
+\usepackage[font=footnotesize]{caption}
+\usepackage{nicefrac} %to put small fractions nicely with \nicefrac{1}{2}
+\usepackage{ragged2e}	%to put \justify
+\usepackage[shortlabels]{enumitem}	%To put letters in enumerate with begin{enumitem}[(a)]
+
+%===== Algorithm setup =====
+\usepackage[ruled,vlined]{algorithm2e}
+
+%===== Example setup =====
+\usepackage{mdframed}
+\usepackage{changepage}
+\newmdenv[
+  topline=false,
+  bottomline=false,
+  skipabove=\topsep,
+  skipbelow=\topsep
+]{siderules}
+
+%===== Theorems, lemmas, definitions, etc.
+\theoremstyle{definition}
+\newtheorem{myDefinition}{Definition}
+\newtheorem{myTheorem}{Theorem}
+\newtheorem{myLemma}{Lemma}
+\newtheorem{myCorollary}{Corollary}
+\newtheorem{myProposition}{Proposition}
+\newtheorem{myExample}{Example}
+\newtheorem{myExercise}{Exercise}
+\newtheorem{myRemark}{Remark}
+\newtheorem{myConjecture}{Conjecture}
+
+%===== Page counters, theorem counters, etc.
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+\renewcommand{\themyDefinition}{\thelecnum.\arabic{myDefinition}}
+\renewcommand{\themyTheorem}{\thelecnum.\arabic{myTheorem}}
+\renewcommand{\themyLemma}{\thelecnum.\arabic{myLemma}}
+\renewcommand{\themyCorollary}{\thelecnum.\arabic{myCorollary}}
+\renewcommand{\themyProposition}{\thelecnum.\arabic{myProposition}}
+\renewcommand{\themyExample}{\thelecnum.\arabic{myExample}}
+\renewcommand{\themyExercise}{\thelecnum.\arabic{myExercise}}
+\renewcommand{\themyRemark}{\thelecnum.\arabic{myRemark}}
+\renewcommand{\themyConjecture}{\thelecnum.\arabic{myConjecture}}
+
+%===== Header box =====
+\newcommand{\lecture}[3]{
+\pagestyle{myheadings}
+\thispagestyle{plain}
+\newpage
+\setcounter{lecnum}{#1}
+\setcounter{page}{1}
+\noindent
+\begin{center}
+\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal line
+\rule{\textwidth}{0.4pt}\\[1\baselineskip] % Thin horizontal line
+\vbox{\vspace{2mm}
+\hbox to 6.28in { {\bf CS 4980/6980: Introduction to Data Science} \hfill $\copyright$ Spring 2018 }
+\vspace{4mm}
+\hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+\vspace{4mm}
+\hbox to 6.28in { {\scshape Instructor: Daniel L. Pimentel-Alarc\'on}  \hfill Scribed by: #3 }}
+\vspace{-2mm}
+\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal line
+\rule{\textwidth}{1.6pt}\\[\baselineskip] % Thick horizontal line
+\end{center}
+\markboth{Lecture #1: #2}{Lecture #1: #2}
+\vspace*{4mm}
+}
+
+%====================================
+%====================================
+% ===== VARIABLES AND COMMANDS =====
+%====================================
+%====================================
+
+
+%===== Some frequent commands that I use =====
+\newcommand{\bs}[1]{\boldsymbol{#1}} %bold symbol
+\newcommand{\hatt}[1]{\boldsymbol{\hat{#1}}} %bold hat
+\newcommand{\careful}{\textcolor{red}}
+\newcommand{\comment}{\textcolor{blue}}
+\newcommand*\rot{\rotatebox{90}} %To rotate text in table
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{\ensuremath{#2}}} % To scale variables in equations
+
+%===== In case you want to add colored text =====
+\newcommand{\blue}{\textcolor{blue}}
+
+%===== Miscelaneous math symbols =====
+\def \R{\mathbb{R}}
+\def \Pr{\mathsf{P}}
+\def \T{\mathsf{T}}
+\def \c{\mathsf{c}}
+\def \spn{{\rm span}}
+\def \Ord{\mathscr{O}}
+\def \<{\langle}
+\def \>{\rangle}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+%===== Common scalars that will be used throughout =====
+\def \D{{\hyperref[DDef]{{\rm D}}}} % ambient Dimension
+\def \N{{\hyperref[NDef]{{\rm N}}}} %Number of samples
+\def \xi{{\hyperref[xiDef]{{\rm x}}}} % a scalar variable x
+
+%===== Common vectors that will be used throughout =====
+\def \xx{{\hyperref[xxDef]{\bs{{\rm x}}}}} % a vector x
+\def \yy{{\hyperref[yyDef]{\bs{{\rm y}}}}} % a vector y
+
+%===== Common matrices that will be used throughout =====
+\def \I{{\hyperref[IDef]{\bs{{\rm I}}}}} % Identity matrix
+\def \X{{\hyperref[XDef]{\bs{{\rm X}}}}} % Data matrix
+
+%Indices that will be used throughout.
+\def \i{{\hyperref[iDef]{{\rm i}}}} % index used for samples, usually goes from 1 to N
+
+%=====================================
+%=====================================
+%===== HERE BEGINS THE DOCUMENT =====
+%=====================================
+%=====================================
+
+\begin{document}
+
+%===== Lecture's number, title, and student's name.
+\lecture{22} % Lecture number
+{Basis} % Lecture title
+{Noah Yasarturk} % Student's name
+
+%===== Section
+%Recap: Definitions
+\section{Preliminary Knowledge}
+%	Define Vector Space
+\textbf{Vector Space} - A vector space $\mathbb{V}$ is a set of vectors that are closed under vector addition (all sums of vectors in the vector space are in the vector space) and scalar multiplication (multiplying any vector in the vector space by a scalar gives another vector in the vector space) and also contains the zero vector.\\
+\linebreak
+%	Define Subspace
+\textbf{Subspace} - Let \textbf{S} $\subset \mathbb{V}$. We say that \textbf{S} is a subspace of $\mathbb{V}$.\\
+\linebreak
+%	Define Linear Combination
+\textbf{Linear Combination} - Let $\mathbb{V}$ be a vector space. Let \{\bm{$\text{\textbf{v}}_{1}$}, \bm{$\text{\textbf{v}}_{2}$}, ... , \bm{$\text{\textbf{v}}_{r}$}\} $\in \mathbb{V}$. We say that \textbf{u} is a linear combination of \{\bm{$\text{\textbf{v}}_{1}$}, \bm{$\text{\textbf{v}}_{2}$}, ... , \bm{$\text{\textbf{v}}_{r}$}\} if $\textbf{u} = \sum_{i=1}^{r} c_{i}\bm{\text{\textbf{v}}_{\text{i}}} $ for some scalars (coefficients) \{$c_{1}$, $c_{2}$, ... , $c_{r}$\}.\\
+\linebreak
+%	Define Linear Independence
+\textbf{Linear Independence} - A set of vectors  \{\bm{$\text{\textbf{v}}_{1}$}, \bm{$\text{\textbf{v}}_{2}$}, ... , \bm{$\text{\textbf{v}}_{r}$}\}  is linearly independent if $\sum_{i=1}^{r} c_{i}\bm{\text{\textbf{v}}_{\text{i}}} = \text{\textbf{0}}$ only when all c's are 0.\\
+\linebreak
+%	Define Span
+\textbf{Span} - The set of all linear combinations of a set of vectors  \{\bm{$\text{\textbf{v}}_{1}$}, \bm{$\text{\textbf{v}}_{2}$}, ... , \bm{$\text{\textbf{v}}_{r}$}\} is the span of those vectors.
+
+%Basis
+\section{Basis}
+%	Define Basis
+\textbf{Basis} - A set of linearly independent vectors  \{\bm{$\text{\textbf{v}}_{1}$}, \bm{$\text{\textbf{v}}_{2}$}, ... , \bm{$\text{\textbf{v}}_{r}$}\} $\in$ \textbf{S} is a basis of a subspace \textbf{S} if each vector \textbf{u} $\in$ \textbf{S} can be written as $\textbf{u} = \sum_{i=1}^{r} c_{i}\bm{\text{\textbf{v}}_{\text{i}}}$ for some unique set of coefficients \{$c_{1}$, $c_{2}$, ... , $c_{r}$\}. In other words, a basis is the minimum collection of vectors that is used to generate a subspace.\\
+%	Provide Examples 1 and 2
+\subsection{Example 1}
+Consider the subspace \textbf{S} $\subset \mathbb{R}^{2}$ given by the 45\degree line: \\
+%\begin{figure}[h]
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{y=x.jpg}
+\caption{ A Subspace \textbf{S} of $\mathbb{R}^2$}
+\end{figure}
+Is $\text{\textbf{v}}_{1} =  $$\begin{bmatrix}1\\1\end{bmatrix}$$ $ a basis of \textbf{S}? Yes, because every vector $\in$ \textbf{S} can be represented as a linear combination of \textbf{v}$_{1}$ (we can arrive at any vector along the line using only scalar multiplication of \textbf{v}$_{1}$).\\
+\linebreak
+Is $\text{\textbf{v}}_{2} =  $$\begin{bmatrix}2\\2\end{bmatrix}$$ $ a basis of \textbf{S}? Yes, for the same reason \textbf{v}$_{1}$ is a basis of \textbf{S}: all vectors of \textbf{S} can be found using scalar multiplication on  \textbf{v}$_{2}$.\\
+\linebreak
+Is $\text{\textbf{v}}_{k} =  $$\begin{bmatrix}k\\k\end{bmatrix}$$ $ a basis of \textbf{S}? Yes, as long as $k\ne0$. If $k=0$, any coefficient $c$ we multiply  \textbf{v}$_{k}$ by will just give us \textbf{0} again.\\
+\linebreak
+Is $\text{\textbf{v}}_{4} =  $$\begin{bmatrix}1\\0\end{bmatrix}$$ $ a basis of \textbf{S}? No. We cannot arrive at any vector in \textbf{S} using scalar multiplication on   \textbf{v}$_{4}$.\\
+\linebreak
+Is $\text{\textbf{v}}_{0} =  $$\begin{bmatrix}0\\0\end{bmatrix}$$ $ a basis of \textbf{S}?  No. We cannot arrive at any vector in \textbf{S} using scalar multiplication on   \textbf{v}$_{0}$.
+\subsection{Example 2}
+Let \textbf{v}$_{1}=$$\begin{bmatrix}1\\0\\0\end{bmatrix}$$ $,  \textbf{v}$_{2}=$$\begin{bmatrix}0\\1\\0\end{bmatrix}$$ $, \textbf{v}$_{3}=$$\begin{bmatrix}0\\0\\1\end{bmatrix}$$ $. Consider the subspace \textbf{S}$\subset\mathbb{R}^{3}$ given by the xy-plane:\\
+\linebreak
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{xyplane.jpg}
+\caption{ The (X,Y)-Plane, a Subspace of $\mathbb{R}^{3}$}
+\end{figure}
+Are \{\textbf{v}$_{1}$,\textbf{v}$_{2}$\} a basis of \textbf{S}? Yes! All vectors in \textbf{S} can be represented as linear combinations of \textbf{v}$_{1}$ and \textbf{v}$_{2}$.\\
+\linebreak
+$\text{Are }$$\begin{bmatrix}1\\1\\0\end{bmatrix}$$ , $$\begin{bmatrix}2\\2\\0\end{bmatrix}$$\text{ a basis of \textbf{S}?}$ No, the two vectors are linearly dependent.\\
+\linebreak
+Are \{\textbf{v}$_{1}$, \textbf{v}$_{2}$, \textbf{v}$_{3}$\} a basis of \textbf{S}? No. \textbf{v}$_{3}$ $\notin$ \textbf{S}.
+%	A Few notes on Bases
+\subsection{A Few Insights on Bases}
+If \{\bm{$\text{\textbf{v}}_{1}$}, \bm{$\text{\textbf{v}}_{2}$}, ... , \bm{$\text{\textbf{v}}_{r}$}\} are a basis of \textbf{S}, then \textbf{S} = span \{\bm{$\text{\textbf{v}}_{1}$}, \bm{$\text{\textbf{v}}_{2}$}, ... , \bm{$\text{\textbf{v}}_{r}$}\}.\\
+\linebreak
+The dimension of \textbf{S} := the number of vectors in a basis of \textbf{S}.\\
+\linebreak
+If a collection of vectors \textbf{V} is a basis of \textbf{S} and another collection of vectors \textbf{U} is a basis of \textbf{S}, then \textbar\textbf{V}\textbar =\textbar\textbf{U}\textbar. In other words, all bases of a subspace will have the same number of elements.
+%Inner Product
+\section{Inner Product}
+The \textbf{inner product} of two vectors \textbf{u} and \textbf{v} := $\langle$\textbf{u}$^{\text{T}}$,\textbf{v}$\rangle$. It approximately represents the angle between two vectors.\\
+\linebreak
+If $\langle$ \textbf{u},\textbf{v}$\rangle$ = 0, the two vectors are \textbf{orthogonal}, another term for perpendicular. Orthogonal vectors contain information that is independent of one another.\\
+\linebreak
+For example, $\langle $$\begin{bmatrix}1\\0\\0\end{bmatrix} , \begin{bmatrix}0\\1\\0\end{bmatrix}$$ \rangle = $$\begin{bmatrix}1&0&0\end{bmatrix} \begin{bmatrix} 0\\1\\0\end{bmatrix}$$ = 0$, so the two vectors are orthogonal. \\
+\linebreak
+As a counterexample, $\langle $$\begin{bmatrix}2\\7\\0\end{bmatrix} , \begin{bmatrix}3\\1\\0\end{bmatrix}$$ \rangle = $$\begin{bmatrix}2&7& 0\end{bmatrix} \begin{bmatrix} 3\\1\\0\end{bmatrix}$$ = 6 + 7 + 0 = 13$, so the two vectors are not orthogonal.\\
+\linebreak
+If \textbf{u} and \textbf{v} are orthogonal and \textbar\textbar\textbf{u}\textbar\textbar = \textbar\textbar\textbf{v}\textbar\textbar = 1, then the two are \textbf{orthonormal}.
+%PCA
+\section{Introduction to PCA}
+\textbf{PCA}, or \textbf{Principal Component Analysis} will find an orthonormal basis of the subspace (along with corresponding coefficients) that best explains the given data. For instance, if we were to run PCA to find a basis for a data set concerned with a collection of individuals' height, weight, and age, it would look something like this:\\
+\linebreak
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{PCA2.jpg}
+\caption{Plotted Individuals' Height, Weight, and Age}
+\end{figure}
+We will discuss just how to do PCA in greater depth next class, but for now know that \textbf{X} = \textbf{UDV}$^{\text{T}}$, where \textbf{X} is our data [(number of individuals, $n$) x (number of features, $f$)] data matrix, \textbf{U} is our [$n$ x  (number of vectors in our basis, $b$)] matrix, \textbf{D} is our [$b$ x $b$] square matrix where variances are diagonal and 0's are elsewhere, and \textbf{C} is our [$b$ x $f$] matrix where \textbf{C} = \textbf{DV}$^{\text{T}}$. Together, we have \textbf{X} = \textbf{UDV}$^{\text{T}}$. We've yet to discuss the significance of each matrix, especially with regards to \textbf{V}.
+%Conclusion
+\section{Conclusions}
+We have defined the basis of a subspace and explained its qualifications. We have learned of inner product which can be used to test orthogonality. Finally, we have introduced the concept of principle component analysis. 
+
+
+\end{document} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
